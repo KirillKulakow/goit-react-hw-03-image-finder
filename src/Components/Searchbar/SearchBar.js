@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import styles from './SearchBar.module.css';
 
 const SearchBar = ({addSearchQuery}) => {
-    const [input, setInput] = useState('');
+    const [inputValue, setInputValue] = useState('');
 
     const inputChange = (e) => {
-        setInput(e.target.value)
+        setInputValue(e.target.value)
     };
 
     const onSubmit = (e) => {
         e.preventDefault();
-        addSearchQuery(input);
+        addSearchQuery(inputValue);
+        setInputValue('');
     };
 
     return (
@@ -25,6 +26,7 @@ const SearchBar = ({addSearchQuery}) => {
                 autoComplete="off"
                 autoFocus
                 placeholder="Search images and photos..."
+                value={inputValue}
                 onChange={inputChange}
                 />
             </form>

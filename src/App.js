@@ -46,11 +46,15 @@ function App() {
       };
       setIsLoader(true);
       const res = await getImagesPXB(searchQuery, page);
-      if(page === 1){
-        setImages(res.data.hits);
-      } else {
-        setImages(prev => [...prev, ...res.data.hits]);
-      };
+      try {
+        if(page === 1){
+          setImages(res.data.hits);
+        } else {
+          setImages(prev => [...prev, ...res.data.hits]);
+        };
+      } catch (error) {
+        console.log(error);
+      }
       setIsLoader(false);
       if(page !== 1){
       window.scrollTo({
@@ -70,7 +74,9 @@ function App() {
     </ImageGallery>
     {isLoader && <Loader/>}
     {!!images.length && !isLoader && <Button addNextPageImages={addNextPageImages}/>}
-    {isModal && <Modal modalImg={modalImg} closeModal={closeModal}/>}
+    {isModal && <Modal closeModal={closeModal}>
+      <img src={modalImg.largeImageURL} alt={modalImg.tags} className="modal__image"/>
+    </Modal>}
     </>
   );
 }

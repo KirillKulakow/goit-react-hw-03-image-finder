@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './Modal.css';
 
-const Modal = ({modalImg, closeModal}) => {
+const Modal = ({closeModal, children}) => {
     
     const closeKey = (e) => {
         if(e.key === 'Escape'){
@@ -27,7 +27,7 @@ const Modal = ({modalImg, closeModal}) => {
     return (
         <div className="Overlay" onClick={close}>
             <div className="Modal">
-                <img src={modalImg.largeImageURL} alt={modalImg.tags} className="modal__image"/>
+                {children}
             </div>
         </div>
     );
